@@ -104,15 +104,16 @@ def player_turn(update, context):
 def computer_turn(update, context):
     turn_count = context.user_data.get('turn_count')
     candy_count = context.user_data.get('candy_count')
-    if candy_count >= turn_count:
-        bot_turn = random.randint(1,turn_count)
-        candy_count-=bot_turn
-    elif (0 < candy_count <turn_count):
-        bot_turn = random.randint(1,candy_count-1)
-        candy_count-=bot_turn
-    if candy_count <1:
+    if candy_count <=1:
         update.message.reply_text('Бот проиграл\nНажмите /start для новой игры')
         return ConversationHandler.END 
+    else:   
+        if candy_count >= turn_count:
+            bot_turn = random.randint(1,turn_count)
+            candy_count-=bot_turn
+        elif (0 < candy_count <turn_count):
+            bot_turn = random.randint(1,candy_count-1)
+            candy_count-=bot_turn
     context.user_data['candy_count'] = candy_count
     context.user_data['turn_count']=turn_count
     update.message.reply_text(f'Бот взял {bot_turn} конфет. В куче осталось {candy_count}: ')

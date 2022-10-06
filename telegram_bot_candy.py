@@ -34,6 +34,7 @@ if __name__ == '__main__':
     dispatcher.add_handler(game_conversation_handler)
 
     # Запуск бота
+    print('server started')
     updater.start_polling()
     updater.idle()
 
